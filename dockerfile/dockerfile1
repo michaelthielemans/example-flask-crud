@@ -29,3 +29,5 @@ RUN . /app/venv/bin/activate && \
 
 # Start the Flask application
 CMD ["/bin/bash", "-c", ". /app/venv/bin/activate && gunicorn", "--bind", "0.0.0.0:8000", "crudapp:app"]
+
+
