@@ -18,7 +18,7 @@ RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
 # Expose the port Flask runs on
-EXPOSE 5000
+EXPOSE 8000
 
 # Initialize, migrate, and upgrade the database
 RUN . /app/venv/bin/activate && \
@@ -27,5 +27,4 @@ RUN . /app/venv/bin/activate && \
     flask db upgrade
 
 # Start the Flask application
-CMD ["/bin/bash", "-c", ". /app/venv/bin/activate"]
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "crudapp:app"]
+CMD ["/bin/bash", "-c", ". /app/venv/bin/activate && gunicorn", "--bind", "0.0.0.0:8000", "crudapp:app"]

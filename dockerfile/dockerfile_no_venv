@@ -22,7 +22,8 @@ RUN pip install --upgrade pip && \
 EXPOSE 8000
 
 # Initialize, migrate, and upgrade the database
-RUN flask db init && \
+RUN . /app/venv/bin/activate && \
+    flask db init && \
     flask db migrate -m "entries table" && \
     flask db upgrade
 
