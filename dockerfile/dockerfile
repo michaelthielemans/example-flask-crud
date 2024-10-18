@@ -1,7 +1,7 @@
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# Set environment variables
+# Set environment variables for Flask
 ENV FLASK_APP=crudapp.py
 ENV FLASK_ENV=development
 
@@ -11,20 +11,15 @@ WORKDIR /app
 # Install git and other dependencies
 RUN apt-get update && apt-get install -y git build-essential libpq-dev gcc
 
-RUN git clone https://github.com/michaelthielemans/example-flask-crud.git
+# Clone the Flask application repository
+RUN git clone https://github.com/michaelthielemans/example-flask-crud.git .
 
-# Install dependencies
+# Upgrade pip and install dependencies directly (no virtual environment needed)
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-# Expose the port Flask runs on
+# Expose the port Flask will run on
 EXPOSE 8000
 
-# Initialize, migrate, and upgrade the database
-RUN . /app/venv/bin/activate && \
-    flask db init && \
-    flask db migrate -m "entries table" && \
-    flask db upgrade
-
-# Start the Flask application
-CMD ["/bin/bash", "-c", ". /app/venv/bin/activate && gunicorn", "--bind", "0.0.0.0:8000", "crudapp:app"]
+# Use Gunicorn to serve the Flask application
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "crudapp:app"]
