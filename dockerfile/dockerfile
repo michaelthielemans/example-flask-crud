@@ -25,4 +25,4 @@ RUN . /app/venv/bin/activate && \
     flask db upgrade
 
 # Start the Flask application
-CMD ["/bin/bash", "-c", ". /app/venv/bin/activate && flask run --host=0.0.0.0"]
+CMD ["/bin/bash", "-c", ". /app/venv/bin/activate && gunicorn -w 4 myapp:app"]
