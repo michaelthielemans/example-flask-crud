@@ -1,9 +1,12 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:latest
 
 # Set environment variables for Flask
 ENV FLASK_APP=crudapp.py
 ENV FLASK_ENV=development
+
+# Ensure Gunicorn is in the PATH
+ENV PATH="/usr/local/bin:$PATH"
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -20,3 +23,12 @@ RUN pip install --upgrade pip && \
 
 # Expose the port Flask will run on
 EXPOSE 8000
+
+# Copy the entrypoint script to the container
+COPY entrypoint.sh /entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /entrypoint.sh
+
+# Set the entrypoint to run the script
+ENTRYPOINT ["/entrypoint.sh"]

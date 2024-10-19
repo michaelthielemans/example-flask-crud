@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.9
 
 # Set environment variables
 ENV FLASK_APP=crudapp.py
@@ -28,6 +28,6 @@ RUN . /app/venv/bin/activate && \
     flask db upgrade
 
 # Start the Flask application
-CMD ["/bin/bash", "-c", ". /app/venv/bin/activate && gunicorn", "--bind", "0.0.0.0:8000", "crudapp:app"]
+CMD ["/bin/sh", "-c", ". /app/venv/bin/activate && gunicorn", "--bind", "0.0.0.0:8000", "crudapp:app"]
 
 
