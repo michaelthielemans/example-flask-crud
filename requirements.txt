@@ -15,3 +15,4 @@ SQLAlchemy==1.4.36
 Werkzeug==2.1.2
 WTForms==3.0.1
 gunicorn==23.0.0
+mysqlclient==2.2.4

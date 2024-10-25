@@ -1,0 +1,41 @@
+name: db-1
+  username: admin
+  master password: V0Nh5WugCmAdKW4Db8jY
+  endpoint: db-1.cz03zfjgokq4.us-east-1.rds.amazonaws.com
+  databasename: crud
+
+-e DATABASE_URL="mysql://admin:UV0Nh5WugCmAdKW4Db8jY@db-1.cz03zfjgokq4.us-east-1.rds.amazonaws.com:3306/crud" --name crud -p 8000:8000 -d flask-crud-gunicorn:latest2
+
+name: db-2
+  username: admin
+  password: ZcLoyANpmFe6TbFWES41
+  endpoint: db-2.cz03zfjgokq4.us-east-1.rds.amazonaws.com
+  databasename: crud
+
+-e DATABASE_URL="mysql://admin:ZcLoyANpmFe6TbFWES41@db-2.cz03zfjgokq4.us-east-1.rds.amazonaws.com:3306/db-2" --name crud -p 8000:8000 -d flask-crud-gunicorn:latest2
+
+
+name: rds-virginia-a
+  username: admin
+  password:
+  endpoint: rds-virginia-a.cz03zfjgokq4.us-east-1.rds.amazonaws.com
+
+name: rds-private
+  username: admin
+  password: G8eDzUWeTGcuR43e74Tg
+  endpoint: 
+
+
+-e DATABASE_URL="mysql://admin:TYcT0BV0fVutRDArm6yO@rds-virginia-a.cz03zfjgokq4.us-east-1.rds.amazonaws.com:3306/rds-virginia-a" --name crud2 -p 8001:8000 -d flask-crud-gunicorn:latest2
+
+
+mysql -h your-rds-endpoint -P 3306 -u your-db-username -p
+mysql -h db-1.cz03zfjgokq4.us-east-1.rds.amazonaws.com -P 3306 -u admin -p UA74LFb7BJPWt3ltiE00
+
+
+
+what is done: created a database in the VPC virginia, but made it public available -> this works fine -> db-1 needs to be tested.
+
+- create a database in the vpc virginia that is situated in the private subnet  -> done db-private
+- spin up a container with cli access
+  - ubuntu
