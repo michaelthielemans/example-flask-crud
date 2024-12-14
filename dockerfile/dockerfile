@@ -19,9 +19,8 @@ RUN pip install --upgrade pip && \
 
 EXPOSE 8000
 
-COPY entrypoint.sh /entrypoint.sh
-
 # Make the entrypoint script executable
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Set the entrypoint to run the script
+ENTRYPOINT ["/app/entrypoint.sh"]
